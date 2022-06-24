@@ -96,8 +96,13 @@ func (u *userService) GetUserList(uuid string) []DO.User {
 	}
 
 	var queryUsers []DO.User
-	db.Raw("SELECT DISTINCT u.username, u.uuid, u.avatar, u.nickname FROM user_friends uf LEFT JOIN users u ON uf.friend_id = u.id OR uf.user_id = u.id WHERE u.id != ? AND (friend_id = ? OR user_id = ?)", queryUser.Id, queryUser.Id, queryUser.Id).Scan(&queryUsers)
+	db.Raw(`SELECT DISTINCT u.username, u.uuid, u.avatar, u.nickname FROM user_friends uf 
+			LEFT JOIN users u ON uf.friend_id = u.id OR uf.user_id = u.id 
+		WHERE u.id != ? AND (friend_id = ? OR user_id = ?)`, 
+		queryUser.Id, queryUser.Id, queryUser.Id).
+		Scan(&queryUsers)
 	log.Logger.Debug("Get UserList-- queryUser", log.Any("queryUser", queryUser))
+	
 	return queryUsers
 }
 
