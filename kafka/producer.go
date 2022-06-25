@@ -29,3 +29,9 @@ func Send(data []byte) {
 	be := sarama.ByteEncoder(data)
 	producer.Input() <- &sarama.ProducerMessage{Topic: topic, Key: nil, Value: be}
 }
+
+func Close() {
+	if producer != nil {
+		producer.Close()
+	}
+}
