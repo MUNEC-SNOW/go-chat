@@ -66,6 +66,7 @@ func (u *userService) ModifyUser(user *DO.User) error {
 func (u *userService) GetUserDetails(uuid string) DO.User {
 	var queryUser *DO.User
 	db := pool.GetDB()
+	log.Logger.Debug("Get User-- queryUser", log.Any("queryUser", uuid))
 	db.Select("uuid", "username", "nickname", "avatar").First(&queryUser, "uuid = ?", uuid)
 	return *queryUser
 }
@@ -74,7 +75,7 @@ func (u *userService) GetUserDetails(uuid string) DO.User {
 func (u *userService) GetUserOrGroupByName(name string) response.SearchResponse {
 	var queryUser *DO.User
 	db := pool.GetDB()
-	db.Select("uuid", "username", "nickname", "avatar").First(&queryUser, "name = ?", name)
+	db.Select("uuid", "username", "nickname", "avatar").First(&queryUser, "username = ?", name)
 
 	var queryGroup *DO.Group
 	db.Select("uuid", "name").First(queryGroup, "name = ?", name)

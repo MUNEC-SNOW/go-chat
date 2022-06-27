@@ -28,6 +28,17 @@ func SaveGroup(c *gin.Context) {
 	c.JSON(http.StatusOK, response.SuccessMsg(nil))
 }
 
+func JoinGroup(c *gin.Context) {
+	userUuid := c.Param("userUuid")
+	groupUuid := c.Param("groupUuid")
+	err := service.GroupService.JoinGroup(groupUuid, userUuid)
+	if err != nil {
+		c.JSON(http.StatusOK, response.FailMsg(err.Error()))
+		return
+	}
+	c.JSON(http.StatusOK, response.SuccessMsg(nil))
+}
+
 func GetGroupUsers(c *gin.Context) {
 	uuid := c.Param("uuid")
 	users := service.GroupService.GetUserIdByGroupUuid(uuid)

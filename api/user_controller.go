@@ -49,6 +49,12 @@ func ModifyUserInfo(c *gin.Context) {
 	c.JSON(http.StatusOK, response.SuccessMsg(nil))
 }
 
+func GetUserDetails(c *gin.Context) {
+	uuid := c.Param("uuid")
+
+	c.JSON(http.StatusOK, response.SuccessMsg(service.UserService.GetUserDetails(uuid)))
+}
+
 func GetUserOrGroupByName(c *gin.Context) {
 	name := c.Query("name")
 

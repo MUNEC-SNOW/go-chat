@@ -10,7 +10,7 @@ import (
 var producer sarama.AsyncProducer
 var topic string = "default_message"
 
-func initProducer(topicInput, hosts string) {
+func InitProducer(topicInput, hosts string) {
 	topic = topicInput
 	config := sarama.NewConfig()
 	config.Producer.Compression = sarama.CompressionGZIP
