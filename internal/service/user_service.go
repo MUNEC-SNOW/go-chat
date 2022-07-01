@@ -7,6 +7,7 @@ import (
 	"chat-room/pkg/common/response"
 	"chat-room/pkg/errors"
 	"chat-room/pkg/global/log"
+	"fmt"
 	"time"
 
 	"github.com/google/uuid"
@@ -41,7 +42,7 @@ func (u *userService) Login(user *DO.User) bool {
 
 	var queryUser *DO.User
 	db.First(&queryUser, "username = ?", user.Username)
-
+	fmt.Println("pp",user.Username, "qp",queryUser.Password)
 	user.Uuid = queryUser.Uuid
     return user.Password == queryUser.Password
 }
