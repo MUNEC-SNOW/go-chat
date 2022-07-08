@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Avatar, Button, Dropdown, Menu, message, Modal, Upload } from "antd";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { User } from "../service/types";
 import UserService from "../service/userService";
 import * as Param from '../common/param/Param'
 import { setUser } from "../redux/user";

@@ -4,11 +4,11 @@ import { User } from "../service/types";
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        value : {} as User
+        user : {} as User
     },
     reducers: {
         setUser: (state, action) => {
-            state.value = action.payload;
+            state.user = action.payload;
         }
     }
 })
