@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { Routes,Route, BrowserRouter, useNavigate } from 'react-router-dom';
+import { Routes,Route, BrowserRouter } from 'react-router-dom';
 import './index.css';
 import store from './redux/store';
 import Login from './layout/Login';

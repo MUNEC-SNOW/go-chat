@@ -1,12 +1,9 @@
 import { Button, Col, Dropdown, Form, FormInstance, Input, Menu, message, Modal, Row } from "antd";
 import React, { useState } from "react"
-import { useDispatch } from "react-redux";
 import { PlusCircleOutlined } from '@ant-design/icons';
-import { AddUser } from "../service/types";
 import UserService from "../service/userService";
 
 export default function UserSearch(props: any) {
-    const dispatch = useDispatch();
     const userService = new UserService();
     const groupForm = React.createRef<FormInstance>();
     const [ showCreateGroup, setShowCreateGroup ] = useState(false);

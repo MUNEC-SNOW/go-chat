@@ -1,4 +1,5 @@
 import { Col, Row } from "antd";
+import Center from "./center/Center";
 import Left from "./left/left";
 
 export default function panel() {
@@ -10,7 +11,7 @@ export default function panel() {
                     </Col>
 
                     <Col span={4} style={{ borderRight: '1px solid #f0f0f0', borderTop: '1px solid #f0f0f0' }}>
-                        {/* <Center /> */}
+                        <Center />
                     </Col>
 
                     <Col offset={1} span={16} style={{ borderTop: '1px solid #f0f0f0' }}>

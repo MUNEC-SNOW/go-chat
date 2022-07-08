@@ -13,10 +13,6 @@ export default function SwitchChat() {
     const friendService: FriendService = new FriendService();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        getFriendList();
-    },[])
-
     const getFriendList = () => {
         setMenuType(1);
         friendService.fetchFriendList(localStorage.uuid)
@@ -40,6 +36,12 @@ export default function SwitchChat() {
                 }
             })
     }
+
+    useEffect(() => {
+        getFriendList();
+    },[])
+
+    
 
     const getGroupList = () => {
         setMenuType(2);

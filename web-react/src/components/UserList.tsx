@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MessageService, { MessageReq } from "../service/messageService";
 import * as Params from '../common/param/Param';
@@ -13,6 +12,7 @@ import { Avatar, Badge, List } from "antd";
 
 export default function UserList() {
     const dispatch = useDispatch();
+    const useRList = useSelector((state:any) => state.panel.userList);
     const userList: UserForList[] = useSelector((state:any) => state.panel.userList)
     const messageService = new MessageService();
 
@@ -66,10 +66,9 @@ export default function UserList() {
     }
 
     const removeUnreadMessageDot = (toUuid: string) => {
-        const userList = useSelector((state:any) => state.panel.userList);
-        for (var index in userList){
-            if (userList[index].uuid === toUuid) {
-                userList[index].hasUnreadMessage = false;
+        for (var index in useRList){
+            if (useRList[index].uuid === toUuid) {
+                useRList[index].hasUnreadMessage = false;
                 dispatch(setUserList(userList))
                 break;
             }

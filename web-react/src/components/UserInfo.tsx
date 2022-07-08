@@ -12,8 +12,7 @@ export default function UserInfo(props: any) {
     const [ modalVisible, setModalVisible] = useState(false); 
     const [ loading, setLoading ] = useState(false);
     const [ imgUrl, setImgUrl ] = useState('');
-    const storeUser = useSelector((state:any) => state.user.value);
-    const [ user, setTUser ] = useState(storeUser);
+    const user = useSelector((state:any) => state.user.value);
     const userService: UserService = new UserService();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -25,7 +24,6 @@ export default function UserInfo(props: any) {
                     ...res.data,
                     avatar: Param.HOST + "/file/" + res.data.avatar
                 }
-                setTUser(user);
                 dispatch(setUser(user))
             }
         })
