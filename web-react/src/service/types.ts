@@ -49,9 +49,9 @@ export type ChooseUser = {
 
 export type Media = {
     isRecord: boolean, 
-    showMediaPanel: boolean, 
-    mediaConnected: boolean, 
-    mediaReject: boolean, 
+    showMediaPanel?: boolean, 
+    mediaConnected?: boolean, 
+    mediaReject?: boolean, 
 }
 export type Peer = {
     localPeer: any,  // WebRTC peer 发起端

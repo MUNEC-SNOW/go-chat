@@ -7,13 +7,13 @@ import {
     FileOutlined,
 } from '@ant-design/icons';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { setMessageList, setChooseUser, setUserList } from "../redux/panel";
+import { setMessageList, setChooseUser, setUserList, selectUserList } from "../redux/panel";
 import { Avatar, Badge, List } from "antd";
+import { useAppSelector } from "../redux/hook";
 
 export default function UserList() {
     const dispatch = useDispatch();
-    const useRList = useSelector((state:any) => state.panel.userList);
-    const userList: UserForList[] = useSelector((state:any) => state.panel.userList)
+    const userList: UserForList[] = useAppSelector(selectUserList)
     const messageService = new MessageService();
 
     const chooseUser = (value: any) => {
@@ -66,9 +66,9 @@ export default function UserList() {
     }
 
     const removeUnreadMessageDot = (toUuid: string) => {
-        for (var index in useRList){
-            if (useRList[index].uuid === toUuid) {
-                useRList[index].hasUnreadMessage = false;
+        for (var index in userList){
+            if (userList[index].uuid === toUuid) {
+                userList[index].hasUnreadMessage = false;
                 dispatch(setUserList(userList))
                 break;
             }
@@ -85,7 +85,7 @@ export default function UserList() {
                     dataLength={userList.length}
                     next={() => {}}
                     hasMore={true}
-                    loader={<h4>Loading...</h4>}
+                    loader={null}
                     scrollableTarget="userList"
                     endMessage={
                         <p style={{ textAlign: 'center' }}>

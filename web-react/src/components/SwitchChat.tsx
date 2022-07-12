@@ -2,23 +2,21 @@ import { Button } from "antd";
 import { UserOutlined, TeamOutlined } from '@ant-design/icons';
 import { useEffect, useState } from "react"
 import * as Params from '../common/param/Param'
-
 import FriendService from "../service/friendService";
 import { UserForList } from "../service/types";
-import { useDispatch } from "react-redux";
 import { setUserList } from "../redux/panel";
+import { useAppDispatch } from "../redux/hook";
 
 export default function SwitchChat() {
     const [menuType, setMenuType] = useState(1);
     const friendService: FriendService = new FriendService();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const getFriendList = () => {
         setMenuType(1);
         friendService.fetchFriendList(localStorage.uuid)
             .subscribe({
                 next: res => {
-                    console.log(localStorage.uuid);
                     console.log(res);
                     let users = res.data;
                     let data: UserForList[] = [];
@@ -30,7 +28,7 @@ export default function SwitchChat() {
                             messageType: 1,
                             avatar: Params.HOST + "/file/" + users[index].avatar,
                         }
-                        data.push(d)
+                        data = [...data, d];
                         dispatch(setUserList(data))
                     }
                 }
@@ -40,8 +38,6 @@ export default function SwitchChat() {
     useEffect(() => {
         getFriendList();
     },[])
-
-    
 
     const getGroupList = () => {
         setMenuType(2);

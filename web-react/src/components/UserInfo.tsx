@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Avatar, Button, Dropdown, Menu, message, Modal, Upload } from "antd";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import UserService from "../service/userService";
 import * as Param from '../common/param/Param'
-import { setUser } from "../redux/user";
+import { selectUser, setUser } from "../redux/user";
 import { beforeUpload, getBase64 } from "../utils/utils";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
+import { User } from "../service/types";
 
 export default function UserInfo(props: any) {
     const [ modalVisible, setModalVisible] = useState(false); 
     const [ loading, setLoading ] = useState(false);
     const [ imgUrl, setImgUrl ] = useState('');
-    const user = useSelector((state:any) => state.user.value);
+    const user = useAppSelector(selectUser);
     const userService: UserService = new UserService();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,7 +24,7 @@ export default function UserInfo(props: any) {
                 let user = {
                     ...res.data,
                     avatar: Param.HOST + "/file/" + res.data.avatar
-                }
+                } as User
                 dispatch(setUser(user))
             }
         })

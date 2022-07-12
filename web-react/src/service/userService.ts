@@ -3,12 +3,12 @@ import type { AjaxConfig } from "rxjs/ajax";
 import { post } from "./req";
 import { AddUser, LoginMessage, RegisterMessage, Res, User } from "./types";
 import * as Params from '../common/param/Param'
-import { useDispatch } from "react-redux";
 import { setUser } from "../redux/user";
 import { Observable } from "rxjs";
+import { useAppDispatch } from "../redux/hook";
 
 export default class UserService {   
-    dispatch = useDispatch() 
+    dispatch = useAppDispatch() 
     login(values: LoginMessage) {
         const ajaxConfig : AjaxConfig = {
             method: 'POST',
