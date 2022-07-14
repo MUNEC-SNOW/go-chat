@@ -56,6 +56,11 @@ export type Media = {
 export type Peer = {
     localPeer: any,  // WebRTC peer 发起端
     remotePeer: any, // WebRTC peer 接收端
+    addIceCandidate: any,
+    addTrack: any,  // WebRTC peer
+    setRemoteDescription: any,  // WebRTC peercreateAnwser
+    createAnwser: any, // WebRTC peercreateAnwser
+    setLocalDescription: any, // WebRTC peercreate
 }
 
 export type AddUser = {
