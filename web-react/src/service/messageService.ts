@@ -1,3 +1,4 @@
+import { Observable } from "rxjs";
 import type { AjaxConfig } from "rxjs/ajax";
 import * as Params from '../common/param/Param'
 
@@ -10,12 +11,26 @@ export type MessageReq = {
 }
 
 export default class MessageService {
-    fetchMessage(values: MessageReq){
-        const ajaxConfig: AjaxConfig = {
+    ajaxConfig: AjaxConfig = {
+        method: 'GET',
+        url: Params.MESSAGE_URL,
+        body: null
+    }
+
+    fetchMessage(values: MessageReq): Observable<any>{
+        this.ajaxConfig = {
             method: 'GET',
             url: Params.MESSAGE_URL,
             body: values
         }
-        return post(ajaxConfig);
+        return post(this.ajaxConfig);
+    }
+
+    chatDetail(url: string): Observable<any>{
+        this.ajaxConfig = {
+            method: 'GET',
+            url: url
+        }
+        return post(this.ajaxConfig);
     }
 }

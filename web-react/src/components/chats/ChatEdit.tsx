@@ -1,5 +1,9 @@
 import { Button, Form, Input, Comment } from 'antd';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { selectChooseUser, selectMessageList } from '../../redux/panel';
+import { setUser } from '../../redux/user';
+import { User } from '../../service/types';
 
 const { TextArea } = Input;
 
@@ -16,7 +20,16 @@ const Editor = ({ onChange, onSubmit, submitting, value, toUser } : any) => (
     </>
 );
 
-export default function ChatEdit() {
+export default function ChatEdit(
+    props: {
+        appendMessage: (message: any) => void,
+        appendImgToPanel: (imgData: any) => void,
+        sendMessage: (message: any) => void
+    }) {
+    const dispatch = useAppDispatch();
+    const chooseUser = useAppSelector(selectChooseUser);
+    const messageList = useAppSelector(selectMessageList);
+    const setUserFn = (user: User) => dispatch(setUser(user));
 
     const [ submitting, setSubmitting ] = useState(false);
     const [ value, setValue ] = useState('');
@@ -49,12 +62,15 @@ export default function ChatEdit() {
                     contentType: 3,
                     file: new Uint8Array(imgData)
                 }
-                // this.props.sendMessage(data)
-
-                // this.props.appendImgToPanel(imgData)
+                props.sendMessage(data)
+                props.appendImgToPanel(imgData)
             })
         }, false)
     }
+
+    useEffect(() => {
+        bindParse()
+    },[])
 
     const handleChange = (e:any) => {
         setValue(e.target.value);
@@ -69,6 +85,9 @@ export default function ChatEdit() {
             contentType: 1
         }
 
+        props.sendMessage(message);
+        props.appendMessage(value);
+
         setSubmitting(false);
         setValue('');
     }
@@ -81,7 +100,7 @@ export default function ChatEdit() {
                     onSubmit={handleSubmit}
                     submitting={submitting}
                     value={value}
-                    // toUser={toUser}
+                    toUser={chooseUser.toUser}
                 />
             }
         />
